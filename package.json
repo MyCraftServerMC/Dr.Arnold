@@ -1,0 +1,19 @@
+{
+  "name": "mybot",
+  "version": "1.0.0",
+  "description": "Teszt bot!",
+  "main": "index.js",
+  "scripts": {
+    "test": "!test"
+  },
+  "keywords": [
+    "mybot"
+  ],
+  "author": "Bendimester23",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "ffmpeg": "0.0.4",
+    "opusscript": "0.0.6"
+  }
+}
