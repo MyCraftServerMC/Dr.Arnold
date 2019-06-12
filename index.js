@@ -1,4 +1,4 @@
-const botconfig = require('./botconfig.json');
+﻿const botconfig = require('./botconfig.json');
 const Discord = require('discord.js');
 const bot = new Discord.Client({disableEveryone: true});
 const hook = require('./webhook.js');
@@ -75,7 +75,7 @@ bot.on('message', message => {
     let content = message.content.slice(prefix.lenght).split(" ");
     let args = content.slice(1);
 
-  // If the message is '!rip'
+    console.log(message.content + message.author);
     if (msg.startsWith(prefix + 'HELLO')) {
         // Create the attachment using Attachment
         // Send the attachment in the message channel
