@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client({disableEveryone: true});
 const hook = require('./webhook.js');
+var dispatcher;
 
 function webhook(channel, title, message, color, avatar) { // This function uses quite a few options. The last 2 are optional.
 
@@ -68,6 +69,7 @@ bot.on("ready", async () => {
 
 
 
+
 bot.on('message', message => {
     let msg = message.content.toUpperCase();
     let prefix = botconfig.prefix;
@@ -75,7 +77,8 @@ bot.on('message', message => {
     let content = message.content.slice(prefix.lenght).split(" ");
     let args = content.slice(1);
 
-    console.log(message.content + message.author);
+    console.log(message.content +' '+ message.author.username);
+
     if (msg.startsWith(prefix + 'HELLO')) {
         // Create the attachment using Attachment
         // Send the attachment in the message channel
@@ -84,12 +87,46 @@ bot.on('message', message => {
     }
 
     if (msg.startsWith(prefix + 'ZENE')) {
-    message.member.voiceChannel.join();
-      const broadcast = bot.createVoiceBroadcast();
-      broadcast.playFile('./teszt.mp3');
-      for (const connection of client.voiceConnections.values()) {
-      connection.playBroadcast(broadcast);
-}
+      message.member.voiceChannel.join()
+          .then(connection => { // Connection is an instance of VoiceConnection
+            let args = message.content.slice(prefix.length + 4).split(" ");
+            switch (args[1]) {
+              case 'monody':
+                dispatcher = connection.playFile('C:/Users/Deep Cool/Desktop/dc bot/monody.mp3');
+                dispatcher.on('end', () => {
+                  connection.disconnect() 
+                });
+                break;
+              case 'feelgood':
+                dispatcher = connection.playFile('C:/Users/Deep Cool/Desktop/dc bot/feel good.mp3');
+                break;
+              case 'rasmussen':
+                dispatcher = connection.playFile('C:/Users/Deep Cool/Desktop/dc bot/rasmussen.mp3');
+                break;
+              default:
+                console.log('Hiba');
+
+            }
+
+
+
+          });
+
+   }
+
+   if (msg.startsWith(prefix + 'PAUSE')) {
+
+     dispatcher.pause();
+   }
+
+   if (msg.startsWith(prefix + 'RESUME')) {
+     console.log("Asd");
+     dispatcher.resume();
+   }
+
+   if (msg.startsWith(prefix + 'VOLUME')) {
+     let args = message.content.slice(prefix.length + 4).split(" ");
+     dispatcher.setVolume(args[0]);
    }
 
      if (msg.startsWith(prefix + 'KEZDŐ')) {
@@ -104,6 +141,7 @@ bot.on('message', message => {
 
      if (msg.includes('FAIN')) {
        message.delete(0);
+       message.author.send("Ne írj ijeneket!");
      }
 
      if (msg.startsWith(prefix + '+18')) {
@@ -142,6 +180,12 @@ bot.on('message', message => {
       let gmArgs = message.content.slice(prefix.length + 7).split(",");
       bot.user.setActivity(gmArgs[0]);
     //}
+    }
+
+    if (msg.startsWith(prefix + "SZABAJOK")) {
+      message.delete();
+      webhook(message.channel,'Szabájok','-Tilos az antiszemitizmus !\n\n-Tilos a rasszizmus ! \n\n-Folytonos káromkodás!(egy kettő nem baj de nem ajánlott)\n\n-Ne spamelj!\n\n-Ne hirdess más szervert,vagy discord csoportot!\n\n-**FONTOS!** A szabályok bármelyikét fölül írhatja egy Admin rangal rendeljező !','FC8469','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0gcx4xAipbECMA5Ve385Ten2XyDjsQH-Xpi1sNW-cUls0l1Y1gw');
+
     }
 
 });
