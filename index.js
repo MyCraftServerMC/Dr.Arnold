@@ -3,6 +3,32 @@ const Discord = require('discord.js');
 const bot = new Discord.Client({disableEveryone: true});
 const hook = require('./webhook.js');
 var dispatcher;
+var app = require('express')();
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
+const dotenv = require('dotenv').config();
+var port = process.env.PORT || 80;
+
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+http.listen(port, function(){
+  console.log('listening on port:'+port);
+});
+
+io.on('connection', function(socket){
+  console.log('connected');
+
+  socket.on('disconnect', function(){
+    console.log('disconnected');
+  });
+
+  socket.on('chat', function(msg){
+    console.log('message: ' + msg);
+    webhook(bot.channels.find("id", "522147724116885505"),msg.name,msg.text,'00FFFF','https://st3.depositphotos.com/1000507/15963/v/1600/depositphotos_159631322-stock-illustration-icon-for-web-chat.jpg');
+  });
+});
 
 function webhook(channel, title, message, color, avatar) { // This function uses quite a few options. The last 2 are optional.
 
@@ -64,7 +90,6 @@ function webhook(channel, title, message, color, avatar) { // This function uses
 bot.on("ready", async () => {
   console.log('elindultam');
   bot.user.setActivity('a MyCraft szerverén');
-
 });
 
 
@@ -78,6 +103,8 @@ bot.on('message', message => {
     let args = content.slice(1);
 
     console.log(message.content +' '+ message.author.username);
+
+    io.emit("dc",message.content);
 
     if (msg.startsWith(prefix + 'HELLO')) {
         // Create the attachment using Attachment
@@ -94,7 +121,7 @@ bot.on('message', message => {
               case 'monody':
                 dispatcher = connection.playFile('C:/Users/Deep Cool/Desktop/dc bot/monody.mp3');
                 dispatcher.on('end', () => {
-                  connection.disconnect() 
+                  connection.disconnect()
                 });
                 break;
               case 'feelgood':

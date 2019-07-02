@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="hu" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Chat</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+
+      socket.on('dc',function(msg){
+        document.getElementById('msg').innerHTML = document.getElementById('msg').innerHTML+ '<div>'+msg+'</div>';
+      });
+      function send() {
+        socket.emit('chat', {name : document.getElementById('name').value , text : document.getElementById('text').value});
+        document.getElementById('text').value = '';
+      }
+    </script>
+  </head>
+  <body>
+    <textarea name="name" id="name" placeholder="Username"></textarea>
+    <textarea name="name" id="text"></textarea>
+    <button type="button" name="button" onclick="send()">Send</button>
+    <div id="msg">
+
+    </div>
+  </body>
+</html>
