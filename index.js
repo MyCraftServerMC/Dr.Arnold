@@ -89,7 +89,7 @@ function webhook(channel, title, message, color, avatar) { // This function uses
 
 bot.on("ready", async () => {
   console.log('elindultam');
-  bot.user.setActivity('a MyCraft szerverén');
+  bot.user.setActivity('a SkyVillage szerverén. ');
 });
 
 
