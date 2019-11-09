@@ -203,7 +203,7 @@ bot.on('message', message => {
 
     if (msg.startsWith(prefix + "SZABAJOK")) {
       message.delete();
-      webhook(message.channel,'Szabájok','-Tilos az antiszemitizmus !\n\n-Tilos a rasszizmus ! \n\n-Folytonos káromkodás!(egy kettő nem baj de nem ajánlott)\n\n-Ne spamelj!\n\n-Ne hirdess más szervert,vagy discord csoportot!\n\n-**FONTOS!** A szabályok bármelyikét fölül írhatja egy Admin rangal rendeljező !','FC8469','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0gcx4xAipbECMA5Ve385Ten2XyDjsQH-Xpi1sNW-cUls0l1Y1gw');
+      webhook(message.channel,'Szabájok','-Tilos az antiszemitizmus !\n\n-Tilos a rasszizmus ! \n\n-Folytonos káromkodás!(egy kettő nem baj de nem ajánlott)\n\n-Ne spamelj!\n\n-Ne hirdess más szervert,vagy discord csoportot!\n\n Peti adjon nekem admin rangot vissza \n\n -**FONTOS!** A szabályok bármelyikét fölül írhatja egy Admin rangal rendeljező !','FC8469','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0gcx4xAipbECMA5Ve385Ten2XyDjsQH-Xpi1sNW-cUls0l1Y1gw');
 
     }
 
