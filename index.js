@@ -130,9 +130,9 @@ bot.on('message', message => {
 	message.member.voiceChannel.join()
           .then(connection => {
                 dispatcher = connection.playFile('helo.mp3');
-                dispatcher.on('end', () => {
-                  connection.disconnect()
-                });
+                setTimeout(function() {
+			connection.disconnect();
+		},3000);
           });
    }
 
