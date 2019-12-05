@@ -1,26 +1,9 @@
-﻿const botconfig = require('./botconfig.json');
+const botconfig = require('./botconfig.json');
 const Discord = require('discord.js');
 const bot = new Discord.Client({disableEveryone: true});
 const hook = require('./webhook.js');
+const  google = require('google-it');
 var dispatcher;
-var app = require('express')();
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
-const dotenv = require('dotenv').config();
-var port = process.env.PORT || 80;
-
-io.on('connection', function(socket){
-  console.log('connected');
-
-  socket.on('disconnect', function(){
-    console.log('disconnected');
-  });
-
-  socket.on('chat', function(msg){
-    console.log('message: ' + msg);
-    webhook(bot.channels.find("id", "522147724116885505"),msg.name,msg.text,'00FFFF','https://st3.depositphotos.com/1000507/15963/v/1600/depositphotos_159631322-stock-illustration-icon-for-web-chat.jpg');
-  });
-});
 
 function webhook(channel, title, message, color, avatar) { // This function uses quite a few options. The last 2 are optional.
 
@@ -81,10 +64,8 @@ function webhook(channel, title, message, color, avatar) { // This function uses
 
 bot.on("ready", async () => {
   console.log('elindultam');
-  bot.user.setActivity('a SkyVillage szerverén. ');
+  bot.user.setActivity('a MyCraft szerverén');
 });
-
-
 
 
 bot.on('message', message => {
@@ -96,14 +77,22 @@ bot.on('message', message => {
 
     console.log(message.content +' '+ message.author.username);
 
-    io.emit("dc",message.content);
-
     if (msg.startsWith(prefix + 'HELLO')) {
-        // Create the attachment using Attachment
-        // Send the attachment in the message channel
         message.channel.send("Hullo " + message.author);
         console.log(message.author + " üdvözölve");
     }
+
+
+    if (message.content === 'IZÉ') {
+      google({'query': 'a'}).then(results => {
+        //webhook(message.channel,'Pít',results,'0000FF','http://icons.iconarchive.com/icons/papirus-team/papirus-apps/128/google-icon.png');
+        message.channel.send("." + results);
+      }).catch(e => {
+        webhook(message.channel,'Pít','Hiba!','0000FF','http://icons.iconarchive.com/icons/papirus-team/papirus-apps/128/google-icon.png');
+      })
+
+          message.delete();
+      }
 
     if (msg.startsWith(prefix + 'ZENE')) {
       message.member.voiceChannel.join()
@@ -136,6 +125,16 @@ bot.on('message', message => {
    if (msg.startsWith(prefix + 'PAUSE')) {
 
      dispatcher.pause();
+   }
+
+   if (msg.startsWith(prefix + 'KOSZON')) {
+	message.member.voiceChannel.join()
+          .then(connection => {
+                dispatcher = connection.playFile('helo.mp3');
+                dispatcher.on('end', () => {
+                  connection.disconnect()
+                });
+          });
    }
 
    if (msg.startsWith(prefix + 'RESUME')) {
@@ -201,14 +200,19 @@ bot.on('message', message => {
     //}
     }
 
+    if (msg.startsWith(prefix + "ALMA")) {
+    //  if (message.memeber.role = message.guild.roles('Admin')) {
+      let gmArgs = message.content.slice(prefix.length + 7).split(",");
+      bot.user.setActivity(gmArgs[0]);
+    //}
+    }
+
     if (msg.startsWith(prefix + "SZABAJOK")) {
       message.delete();
-      webhook(message.channel,'Szabájok','-Tilos az antiszemitizmus !\n\n-Tilos a rasszizmus ! \n\n-Folytonos káromkodás!(egy kettő nem baj de nem ajánlott)\n\n-Ne spamelj!\n\n-Ne hirdess más szervert,vagy discord csoportot!\n\n Peti adjon nekem admin rangot vissza es jojjon hang \n\n -**FONTOS!** A szabályok bármelyikét fölül írhatja egy Admin rangal rendeljező !','FC8469','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0gcx4xAipbECMA5Ve385Ten2XyDjsQH-Xpi1sNW-cUls0l1Y1gw');
+      webhook(message.channel,'Szabájok','-Tilos az antiszemitizmus !\n\n-Tilos a rasszizmus ! \n\n-Folytonos káromkodás!(egy kettő nem baj de nem ajánlott)\n\n-Ne spamelj!\n\n-Ne hirdess más szervert,vagy discord csoportot!\n\n-**FONTOS!** A szabályok bármelyikét fölül írhatja egy Admin rangal rendeljező !','FC8469','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0gcx4xAipbECMA5Ve385Ten2XyDjsQH-Xpi1sNW-cUls0l1Y1gw');
 
     }
 
 });
-
-
 
 bot.login(botconfig.token);
