@@ -2,7 +2,6 @@ const botconfig = require('./botconfig.json');
 const Discord = require('discord.js');
 const bot = new Discord.Client({disableEveryone: true});
 const hook = require('./webhook.js');
-const  google = require('google-it');
 var dispatcher;
 
 function webhook(channel, title, message, color, avatar) { // This function uses quite a few options. The last 2 are optional.
