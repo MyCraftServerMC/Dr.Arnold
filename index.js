@@ -63,7 +63,7 @@ function webhook(channel, title, message, color, avatar) { // This function uses
 
 bot.on("ready", async () => {
   console.log('elindultam');
-  bot.user.setActivity('a MyCraft szerverén');
+  bot.user.setActivity('a SkyVillage szerverén');
 });
 
 
@@ -132,7 +132,7 @@ bot.on('message', message => {
                 dispatcher = connection.playFile('helo.mp3');
                 setTimeout(function() {
 			connection.disconnect();
-		},3000);
+		},10000);
           });
    }
 
