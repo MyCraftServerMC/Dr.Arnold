@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 public class HelloCommand implements OnCommandListener {
 	
 	public HelloCommand() {
+		
 	}
 	
 	@Override
