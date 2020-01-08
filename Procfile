@@ -1,1 +1,1 @@
-Worker: java $JAVA_OPTS -jar target/dependency/drarnold.jar target/*.war
+Worker: java -jar build/libs/DcBot.jar
