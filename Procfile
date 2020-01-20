@@ -1,1 +1,1 @@
-Worker: java -jar build/libs/DcBot.jar
+Worker: java -jar server.jar
