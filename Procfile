@@ -1,1 +1,1 @@
-Worker: java -jar server.jar
+Worker: java -jar server2.jar
