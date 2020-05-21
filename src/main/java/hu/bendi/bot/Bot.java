@@ -11,9 +11,9 @@ import net.dv8tion.jda.api.entities.Activity;
 
 public class Bot {
 
-	private String TOKEN = "NTY0ODA5NDc4NjcxNjk1OTAy.XZYR9A.hPHI8bXMeNsuNLrDED5NSYgPgKo";
+	private String TOKEN = "NTY0ODA5NDc4NjcxNjk1OTAy.XsZ1Ew.GonlsNa0H8gPmvUqwXYQ_K2M2aw";
 	private String NAME = "Bot";
-	public final String PREFIX = "§";
+	public final String PREFIX = "Â§";
 	private Logger log;
 	
 	private JDA bot;
@@ -52,7 +52,7 @@ public class Bot {
 	public void init() {
 		build();
 		registerCmds();
-		bot.getPresence().setActivity(Activity.playing(" a SkyVillage szerverén"));
+		bot.getPresence().setActivity(Activity.playing(" a SkyVillage szerverÃ©n"));
 	}
 	
 	
