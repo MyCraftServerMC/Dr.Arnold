@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.entities.Activity;
 
 public class Bot {
 
-	private String TOKEN = "NTY0ODA5NDc4NjcxNjk1OTAy.XsZ1Ew.GonlsNa0H8gPmvUqwXYQ_K2M2aw";
+	private String TOKEN = "NTY0ODA5NDc4NjcxNjk1OTAy.XsZ4uA.nsw9XAm6jdDllE7L7jKE9o6EwZo";
 	private String NAME = "Bot";
 	public final String PREFIX = "§";
 	private Logger log;
